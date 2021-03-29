@@ -75,7 +75,7 @@
                     <!-- Chat list -->
                     <div class="chat_list">
                         <ul>
-                            <li v-for="contact in contacts" :class="{'active_chat': contact.active}"> <a href="#" class="flex" @click="setCurrentChat(contact)">  <img :src=`img/avatar${contact.avatar}.jpg` > <small> {{contact.name}}</small></a> </li>
+                            <li v-for="contact in contacts" :class="{'active_chat': contact.active}" :key="contact.id"> <a href="#" class="flex" @click="setCurrentChat(contact.id)">  <img :src=`img/avatar${contact.avatar}.jpg` > <small> {{contact.name}}</small></a> </li>
                         </ul>
                     </div>
                     <!-- /Chat list -->
@@ -113,9 +113,15 @@
                     <!-- /Top Chat -->
 
                     <div class="conversation">
-                        <div class="row">
-                            <div class="left_row"></div>
-                            <div class="right_row"></div>
+                        <div class="row flex" v-for="(msg, index) in currentChat.messages" :key="index" :class="{'flex_end' : msg.status == 'sent', 'flex_start' : msg.status == 'received'}">
+                            <div class="left_row message flex" v-show="msg.status == 'received'" :class="{'message_received' : msg.status == 'received'}">
+                                  <p class="text_message flex">{{msg.message}}</p>
+                                  <p class="row date flex">{{msg.date}}</p>
+                            </div>
+                            <div class="right_row message flex" v-show="msg.status == 'sent'" :class="{'message_sent' : msg.status == 'sent'}">
+                                <p class="text_message flex">{{msg.message}}</p>
+                                <p class="row date flex">{{msg.date}}</p>
+                            </div>
                         </div>
                     </div>
 

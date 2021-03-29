@@ -5,6 +5,7 @@ var app = new Vue({
         avatar: "img/avatar_io.jpg",
         contacts: [
           {
+              id:"1",
               name: 'Michele',
               avatar: '_1',
               visible: true,
@@ -27,6 +28,7 @@ var app = new Vue({
               ],
           },
           {
+              id:"2",
               name: 'Fabio',
               avatar: '_2',
               visible: true,
@@ -49,6 +51,7 @@ var app = new Vue({
               ],
           },
           {
+              id:"3",
               name: 'Samuele',
               avatar: '_3',
               visible: true,
@@ -71,6 +74,7 @@ var app = new Vue({
               ],
           },
           {
+              id:"4",
               name: 'Luisa',
               avatar: '_4',
               visible: true,
@@ -92,17 +96,21 @@ var app = new Vue({
     
     methods:{
     
-      setCurrentChat: function (chat){
+      setCurrentChat: function (id){
         this.contacts.forEach(element => {
+         if( element.id == id){
+           element.active = true;
+          this.currentChat = element;
+         }
+         else{
           element.active = false;
+         }
         });
-
-        chat.active = true;
-        this.currentChat = chat;
+        
 
       },
       setInitCurrentChat: function (){
-        this.setCurrentChat(this.contacts[0])
+        this.setCurrentChat(this.contacts[0].id)
       },
       
     },
