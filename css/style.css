@@ -13,3 +13,127 @@
     display: table;
 }
 /*********************/
+/* Utilities */
+
+.flex{
+    display: flex;
+}
+
+/* /Utilities */
+
+#root{
+    width: 100%;
+    height: 100vh;
+}
+
+img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+ul{
+    list-style: none;
+}
+ul > li{
+    margin: 0 8px;
+}
+
+li > a{
+    color: #B1B1B1;
+}
+.header_app{
+    background-color: #009688;
+    height: 150px;
+    width: 100%;
+}
+.main_app{
+    background-color: #DBDBD2;
+    width: 100%;
+    height: calc(100% - 150px);
+}
+
+.content_app{
+    background-color: #EAEAEA;
+    max-width: 1200px;
+    height: 100%;
+    display: flex;
+    margin: 0 auto;
+    transform: translate(0%, -15%);
+    -webkit-transform: translate(0%, -15%);
+    -moz-transform: translate(0%, -15%);
+    -ms-transform: translate(0%, -15%);
+    -o-transform: translate(0%, -15%);
+}
+.left_content_app{
+    width: 40%;
+}
+.user{
+    flex: 1;
+    height: 100px
+}
+.left_inside{
+    align-items: center;
+    width: 45%;
+}
+.right_inside{
+    justify-content: flex-end;
+    align-items: center;
+    width: 60%;
+}
+
+.right_content_app{
+    width: 60%;
+    background-color: #D6D6D6;
+}
+
+.top_chat_displayed{
+    align-items: center;
+    height: 100px;
+    background-color: #EAEAEA;
+    margin-left: 2px;
+}
+
+.conversation{
+    height: calc(100% - 150px);
+    background-image: url("../img/mine.jpg");
+    overflow-y: scroll;
+}
+
+.bottom_chat_displayed{
+    background-color: #F3EEEA;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+}
+.bottom_chat_displayed ul{
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.bottom_chat_displayed ul input{
+    border: none;
+    height: 85%;
+    width: 100%;
+    padding: 5px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+.bottom_chat_displayed ul > li:nth-child(2){
+    width: 80%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom_chat_displayed i{
+    color: #6B7376
+}

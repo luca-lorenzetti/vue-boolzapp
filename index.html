@@ -19,17 +19,106 @@
 <body>
 
     <div id="root">
+        <!-- Header app -->
+        <div class="header_app"></div>
 
-        
+        <!-- Main app -->
+        <div class="main_app">
+
+            <!-- Content app -->
+            <div class="content_app">
+                <!-- Left_content_app -->
+                <div class="left_content_app flex">
+                    <!-- User div -->
+                    <div class="user flex">
+                        <!-- Left inside -->
+                        <div class="left_inside flex">
+                            <img :src="profile.avatar" alt="avatar">
+                            <p><small>{{profile.username}}</small></p>
+                        </div>
+                        <!-- /Left inside -->
+
+                        <!-- Right inside -->
+                        <div class="right_inside flex">
+                            <ul class="flex">
+                                <li><a href="#"><i class="fas fa-circle-notch"></i></a></li>
+                                <li><a href="#"><i class="fas fa-comment-alt"></i></a></li>
+                                <li><a href="#"><i class="fas fa-ellipsis-v"></i></a></li>
+                            </ul>
+                        </div>
+                        <!-- /Right inside -->
+
+                    </div>
+                    <!-- /User div -->
+
+                </div>
+                <!-- /Left_content_app -->
+
+                <!-- Right_content_app -->
+                <div class="right_content_app">
+                    <!-- Chat div -->
+
+                    <!-- Top Chat -->
+                    <div class="top_chat_displayed flex">
+                        <!-- Left inside -->
+                        <div class="left_inside flex">
+                            <img :src="profile.avatar" alt="avatar">
+                            <p><small>{{profile.username}}</small></p>
+                        </div>
+                        <!-- /Left inside -->
+
+                        <!-- Right inside -->
+                        <div class="right_inside flex">
+                            <ul class="flex">
+                                <li><a href="#"><i class="fas fa-search"></i></a></li>
+                                <li><a href="#"><i class="fas fa-paperclip"></i></a></li>
+                                <li><a href="#"><i class="fas fa-ellipsis-v"></i></a></li>
+                            </ul>
+                        </div>
+                        <!-- /Right inside -->
+
+                    </div>
+                    <!-- /Top Chat -->
+
+                    <div class="conversation">
+                        <div class="row">
+                            <div class="left_row"></div>
+                            <div class="right_row"></div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom chat -->
+                    <div class="bottom_chat_displayed flex">
+                        <ul class="flex">
+                            <li><a href="#"> <i class="far fa-smile"></i></a></li>
+                            <li class="flex"><input placeholder="Scrivi un messaggio" type="text" name="" id=""></li>
+                            <li><a href="#"><i class="fas fa-microphone"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- /Bottom chat -->
+
+
+                    <!-- /Chat div -->
+                </div>
+                <!-- Right_content_app -->
+
+            </div>
+            <!-- /Content app -->
+        </div>
+        <!-- /Main app -->
+
     </div>
-        <!-- jQuery 3.6.0 -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Contacts -->
+    <script src="js/contacts.js"></script>
 
-        <!-- VueJs -->
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 
-        <!-- My Script -->
-        <script src="js/script.js" charset="utf-8"></script>
+    <!-- VueJs -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+
+
+
+    <!-- My Script -->
+    <script src="js/script.js" charset="utf-8"></script>
 
 </body>
 
