@@ -33,8 +33,8 @@
                     <div class="user flex">
                         <!-- Left inside -->
                         <div class="left_inside flex">
-                            <img :src="profile.avatar" alt="avatar">
-                            <p><small>{{profile.username}}</small></p>
+                            <img :src="avatar" alt="avatar">
+                            <p><small>{{username}}</small></p>
                         </div>
                         <!-- /Left inside -->
 
@@ -51,6 +51,38 @@
                     </div>
                     <!-- /User div -->
 
+                    <!-- Notifications -->
+                    <div class="notifications flex">
+                        <div class="notifications_icon">
+                            <a href="#"> <i class="fas fa-bell-slash"></i></a>
+                        </div>
+                        <div class="notifications_links">
+                            <p>Ricevi notifiche di nuovi messaggi</p>
+                            <p><small><a href="#"> Attiva notifiche desktop</a></small></p>
+                        </div>
+                     
+                    </div>
+                    <!-- /Notifications -->
+
+                    <!-- Search bar -->
+
+                        <div class="search_bar flex">
+                            <a href="#"> <i class="fas fa-search"></i></a>
+                            <input type="text" maxlength="30" placeholder="Cerca o inizia una nuova chat" id="">
+                        </div>
+                    <!-- /Search bar -->
+
+                    <!-- Chat list -->
+                    <div class="chat_list">
+                        <ul>
+                            <li v-for="contact in contacts" :class="{'active_chat': contact.active}"> <a href="#" class="flex" @click="setCurrentChat(contact)">  <img :src=`img/avatar${contact.avatar}.jpg` > <small> {{contact.name}}</small></a> </li>
+                        </ul>
+                    </div>
+                    <!-- /Chat list -->
+
+
+                   
+
                 </div>
                 <!-- /Left_content_app -->
 
@@ -62,8 +94,8 @@
                     <div class="top_chat_displayed flex">
                         <!-- Left inside -->
                         <div class="left_inside flex">
-                            <img :src="profile.avatar" alt="avatar">
-                            <p><small>{{profile.username}}</small></p>
+                            <img :src=`img/avatar${currentChat.avatar}.jpg`>
+                            <p><small>{{currentChat.name}}</small></p>
                         </div>
                         <!-- /Left inside -->
 
@@ -111,11 +143,8 @@
     <!-- Contacts -->
     <script src="js/contacts.js"></script>
 
-
     <!-- VueJs -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-
-
 
     <!-- My Script -->
     <script src="js/script.js" charset="utf-8"></script>
