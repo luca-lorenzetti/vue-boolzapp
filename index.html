@@ -129,7 +129,7 @@
                     <div class="bottom_chat_displayed flex">
                         <ul class="flex">
                             <li><a href="#"> <i class="far fa-smile"></i></a></li>
-                            <li class="flex"><input placeholder="Scrivi un messaggio" type="text" name="" id=""></li>
+                            <li class="flex"><input placeholder="Scrivi un messaggio" type="text" name="" v-model="textMessage" @keyup.enter="checkInputText(textMessage)"></li>
                             <li><a href="#"><i class="fas fa-microphone"></i></a></li>
                         </ul>
                     </div>
@@ -146,6 +146,8 @@
         <!-- /Main app -->
 
     </div>
+      <!-- Dayjs -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js" charset="utf-8"></script>
     <!-- Contacts -->
     <script src="js/contacts.js"></script>
 

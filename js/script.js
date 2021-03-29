@@ -91,9 +91,10 @@ var app = new Vue({
                   }
               ],
           }],
-      currentChat: {}
+      currentChat: {},
+      textMessage: ""
     },
-    
+   
     methods:{
     
       setCurrentChat: function (id){
@@ -112,6 +113,25 @@ var app = new Vue({
       setInitCurrentChat: function (){
         this.setCurrentChat(this.contacts[0].id)
       },
+      sentMessage: function(message){
+        this.currentChat.messages.push(message);
+        this.textMessage = "";
+      },
+
+      getCurrentDate: function(){
+        return dayjs().format("DD/MM/YYYY HH:mm");
+      },
+      checkInputText: function(text){
+
+        if( text != ""){
+
+            this.sentMessage({
+                date: this.getCurrentDate(),
+                message: text,
+                status: 'sent'
+            })
+        }
+      }
       
     },
     created: function (){
