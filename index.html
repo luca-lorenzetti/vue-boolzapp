@@ -7,13 +7,15 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- My Style -->
     <link rel="stylesheet" href="css/style.css">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Document</title>
+    <title>Boolzapp</title>
 </head>
 
 <body>
@@ -67,15 +69,15 @@
                     <!-- Search bar -->
 
                         <div class="search_bar flex">
-                            <a href="#"> <i class="fas fa-search"></i></a>
-                            <input type="text" maxlength="30" placeholder="Cerca o inizia una nuova chat" id="">
+                            <a href="#" class="shadow"> <i class="fas fa-search"></i></a>
+                            <input type="text" maxlength="30" placeholder="Cerca o inizia una nuova chat" class="shadow" v-model="filter" @keyup="contactsFilter(filter)" @keyup.delete="contactsFilter(filter)">
                         </div>
                     <!-- /Search bar -->
 
                     <!-- Chat list -->
                     <div class="chat_list">
                         <ul>
-                            <li v-for="contact in contacts" :class="{'active_chat': contact.active}" :key="contact.id"> <a href="#" class="flex" @click="setCurrentChat(contact.id)">  <img :src=`img/avatar${contact.avatar}.jpg` > <small> {{contact.name}}</small></a> </li>
+                            <li v-for="contact in chatStarted"  :key="contact.id"> <a href="#" class="flex" @click="setCurrentChat(contact.id)">  <img :src=`img/avatar${contact.avatar}.jpg` :alt="'avatar '  + contact.name"> <small> {{contact.name}}</small></a> </li>
                         </ul>
                     </div>
                     <!-- /Chat list -->
@@ -113,12 +115,12 @@
                     <!-- /Top Chat -->
 
                     <div class="conversation">
-                        <div class="row flex" v-for="(msg, index) in currentChat.messages" :key="index" :class="{'flex_end' : msg.status == 'sent', 'flex_start' : msg.status == 'received'}">
-                            <div class="left_row message flex" v-show="msg.status == 'received'" :class="{'message_received' : msg.status == 'received'}">
+                        <div class="row flex " v-for="(msg, index) in currentChat.messages" :key="index" :class="{'flex_end' : msg.status == 'sent', 'flex_start' : msg.status == 'received'}">
+                            <div class="left_row message flex shadow" v-show="msg.status == 'received'" :class="{'message_received' : msg.status == 'received'}">
                                   <p class="text_message flex">{{msg.message}}</p>
                                   <p class="row date flex">{{msg.date}}</p>
                             </div>
-                            <div class="right_row message flex" v-show="msg.status == 'sent'" :class="{'message_sent' : msg.status == 'sent'}">
+                            <div class="right_row message flex shadow" v-show="msg.status == 'sent'" :class="{'message_sent' : msg.status == 'sent'}">
                                 <p class="text_message flex">{{msg.message}}</p>
                                 <p class="row date flex">{{msg.date}}</p>
                             </div>
@@ -129,7 +131,7 @@
                     <div class="bottom_chat_displayed flex">
                         <ul class="flex">
                             <li><a href="#"> <i class="far fa-smile"></i></a></li>
-                            <li class="flex"><input placeholder="Scrivi un messaggio" type="text" name="" v-model="textMessage" @keyup.enter="checkInputText(textMessage)"></li>
+                            <li class="flex"><input placeholder="Scrivi un messaggio" class="shadow" type="text" name="" v-model="textMessage" @keyup.enter="checkInputText(textMessage)"></li>
                             <li><a href="#"><i class="fas fa-microphone"></i></a></li>
                         </ul>
                     </div>
