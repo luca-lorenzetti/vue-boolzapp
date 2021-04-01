@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- My Style -->
     <link rel="stylesheet" href="css/style.css">
 
@@ -37,6 +37,7 @@
                         <div class="left_inside flex">
                             <img :src="avatar" alt="avatar">
                             <p><small>{{username}}</small></p>
+
                         </div>
                         <!-- /Left inside -->
 
@@ -62,28 +63,36 @@
                             <p>Ricevi notifiche di nuovi messaggi</p>
                             <p><small><a href="#"> Attiva notifiche desktop</a></small></p>
                         </div>
-                     
+
                     </div>
                     <!-- /Notifications -->
 
                     <!-- Search bar -->
 
-                        <div class="search_bar flex">
-                            <a href="#" class="shadow"> <i class="fas fa-search"></i></a>
-                            <input type="text" maxlength="30" placeholder="Cerca o inizia una nuova chat" class="shadow" v-model="filter" @keyup="contactsFilter(filter)" @keyup.delete="contactsFilter(filter)">
-                        </div>
+                    <div class="search_bar flex">
+                        <a href="#" class="shadow"> <i class="fas fa-search"></i></a>
+                        <input type="text" maxlength="30" placeholder="Cerca o inizia una nuova chat" class="shadow"
+                            v-model="filter" @keyup="contactsFilter(filter)" @keyup.delete="contactsFilter(filter)">
+                    </div>
                     <!-- /Search bar -->
 
                     <!-- Chat list -->
                     <div class="chat_list">
                         <ul>
-                            <li v-for="contact in chatStarted"  :key="contact.id"> <a href="#" class="flex" @click="setCurrentChat(contact.id)">  <img :src=`img/avatar${contact.avatar}.jpg` :alt="'avatar '  + contact.name"> <small> {{contact.name}}</small></a> </li>
+                            <li v-for="contact in chatStarted" :class="{'active_chat' : contact.active}"
+                                :key="contact.id"> <a href="#" class="flex" @click="setCurrentChat(contact.id)"> <img
+                                        :src=`img/avatar${contact.avatar}.jpg` :alt="'avatar '  + contact.name">
+                                    <p class="flex"><small> {{contact.name}}</small> <small> <i class="fas fa-check"
+                                                v-show="contact.messages[contact.messages.length-1].status == 'sent'"
+                                                :class="{'seen' : contact.messages[contact.messages.length-1].seen == 'seen'}"></i><i
+                                                class="fas fa-check"
+                                                v-show="contact.messages[contact.messages.length-1].status == 'sent'"
+                                                :class="{'seen' : contact.messages[contact.messages.length-1].seen == 'seen'}"></i>{{contact.messages[contact.messages.length-1].message}}</small>
+                                    </p>
+                                </a> </li>
                         </ul>
                     </div>
                     <!-- /Chat list -->
-
-
-                   
 
                 </div>
                 <!-- /Left_content_app -->
@@ -96,8 +105,9 @@
                     <div class="top_chat_displayed flex">
                         <!-- Left inside -->
                         <div class="left_inside flex">
-                            <img :src=`img/avatar${currentChat.avatar}.jpg`>
-                            <p><small>{{currentChat.name}}</small></p>
+                            <img :src=`img/avatar${currentChat.avatar}.jpg`> <p><small>{{currentChat.name}}</small></p>
+                            <p><small>{{checkLastAccess()}}</small></p>
+
                         </div>
                         <!-- /Left inside -->
 
@@ -115,14 +125,19 @@
                     <!-- /Top Chat -->
 
                     <div class="conversation">
-                        <div class="row flex " v-for="(msg, index) in currentChat.messages" :key="index" :class="{'flex_end' : msg.status == 'sent', 'flex_start' : msg.status == 'received'}">
-                            <div class="left_row message flex shadow" v-show="msg.status == 'received'" :class="{'message_received' : msg.status == 'received'}">
-                                  <p class="text_message flex">{{msg.message}}</p>
-                                  <p class="row date flex">{{msg.date}}</p>
-                            </div>
-                            <div class="right_row message flex shadow" v-show="msg.status == 'sent'" :class="{'message_sent' : msg.status == 'sent'}">
+                        <div class="row flex " v-for="(msg, index) in currentChat.messages" :key="index"
+                            :class="{'flex_end' : msg.status == 'sent', 'flex_start' : msg.status == 'received'}">
+                            <div class="left_row message flex shadow" v-show="msg.status == 'received'"
+                                :class="{'message_received' : msg.status == 'received'}">
                                 <p class="text_message flex">{{msg.message}}</p>
                                 <p class="row date flex">{{msg.date}}</p>
+                            </div>
+                            <div class="right_row message flex shadow" v-show="msg.status == 'sent'"
+                                :class="{'message_sent' : msg.status == 'sent'}">
+                                <p class="text_message flex">{{msg.message}}</p>
+                                <p class="row date flex">{{msg.date}}<i class="fas fa-check"
+                                        :class="{'seen' : msg.seen == 'seen'}"></i><i class="fas fa-check"
+                                        :class="{'seen' : msg.seen == 'seen'}"></i></p>
                             </div>
                         </div>
                     </div>
@@ -131,7 +146,8 @@
                     <div class="bottom_chat_displayed flex">
                         <ul class="flex">
                             <li><a href="#"> <i class="far fa-smile"></i></a></li>
-                            <li class="flex"><input placeholder="Scrivi un messaggio" class="shadow" type="text" name="" v-model="textMessage" @keyup.enter="checkInputText(textMessage)"></li>
+                            <li class="flex"><input placeholder="Scrivi un messaggio" class="shadow" type="text" name=""
+                                    v-model="textMessage" @keyup.enter="sentMessage(textMessage)"></li>
                             <li><a href="#"><i class="fas fa-microphone"></i></a></li>
                         </ul>
                     </div>
@@ -148,8 +164,11 @@
         <!-- /Main app -->
 
     </div>
-      <!-- Dayjs -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js" charset="utf-8"></script>
+
+    <!-- My Simple Bot -->
+    <script src="js/simpleBot.js"></script>
+    <!-- Dayjs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js" charset="utf-8"></script>
     <!-- Contacts -->
     <script src="js/contacts.js"></script>
 

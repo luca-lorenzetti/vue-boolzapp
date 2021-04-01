@@ -15,8 +15,14 @@
 /*********************/
 /* Utilities */
 
+input{
+    outline-style: none;
+}
 .flex{
     display: flex;
+}
+.seen{
+    color: #34b7f1;
 }
 .flex_start{
     justify-content: flex-start;
@@ -161,7 +167,6 @@ li > a{
     background-color: #fff;
     font-size: 16px;
     height: 70%;
-    /* box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2); */
 }
 .search_bar input{
     width: 85%;
@@ -169,7 +174,6 @@ li > a{
     margin-left: 2px;
     height: 70%;
     border: none;
-    /* box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2); */
 }
 
 .chat_list{
@@ -188,16 +192,28 @@ li > a{
     border-top: 1px #EAEAEA solid;
     margin: 0;
 }
-.chat_list ul li small{
+.chat_list ul li p{
     margin-left: 10px;
+    flex-direction: column;
+}
+.chat_list ul li small:nth-child(1){
     font-weight: bold;
     font-size: 16px;
+    margin-bottom: 15px;
+}
+.chat_list ul li small:nth-child(2){
+    text-overflow: ellipsis;
+    color: #6B7376;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .chat_list ul a{
     text-decoration: none;
-    color: #000
+    color: #000;
 }
-
+.chat_list .fa-check:nth-child(2){
+    margin-right: 5px;
+}
 .top_chat_displayed{
     align-items: center;
     height: 70px;
@@ -243,6 +259,15 @@ li > a{
     margin-bottom: 0;
     justify-content: flex-end;
 }
+.fa-check:nth-child(1){
+    margin-left: 5px;
+    margin-right: -7px;
+}
+
+.fa-check{
+    font-weight: 300;
+    font-size: 12px;
+}
 .bottom_chat_displayed{
     background-color: #F3EEEA;
     justify-content: space-around;
@@ -266,7 +291,6 @@ li > a{
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
-    /* box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2); */
 }
 .bottom_chat_displayed ul > li:nth-child(2){
     width: 80%;
