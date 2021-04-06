@@ -132,17 +132,6 @@ var app = new Vue({
 
 
         },
-        checkLastAccess: function () {
-            // let date = this.currentChat.lastAccess.substring(0, 10).split("/");
-            // let dateNow = dayjs().format("DD/MM/YYYY").split("/");
-
-            // let access = "";
-
-            // if( dateNow[2] = date[2] ){
-            //     access = "oggi alle ";
-            // }
-
-        },
         //   Setta le chat aperta
         setChatStarted: function () {
             this.chatStarted = this.contacts.filter(function (elem) {
@@ -180,6 +169,7 @@ var app = new Vue({
               }
 
         },
+        // Funzione che crea la risposta
         createAnswer: function (mess) {
             this.currentChat.messages.push({
                 id: this.currentChat.messages.length + 1,

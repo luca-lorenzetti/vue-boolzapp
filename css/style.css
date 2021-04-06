@@ -102,6 +102,13 @@ li > a{
     padding-left: 5px;
     width: 45%;
 }
+.left_inside p{
+ flex-direction: column;
+}
+.left_inside small:nth-child(2){
+    color:#B1B1B1;
+    font-size: 12px;
+}
 .right_inside{
     justify-content: flex-end;
     align-items: center;
