@@ -144,10 +144,15 @@
 
                     <!-- Bottom chat -->
                     <div class="bottom_chat_displayed flex">
-                        <ul class="flex">
-                            <li><a href="#"> <i class="far fa-smile"></i></a></li>
-                            <li class="flex"><input placeholder="Scrivi un messaggio" class="shadow" type="text" name=""
-                                    v-model="textMessage" @keyup.enter="sentMessage(textMessage)"></li>
+                        <transition name="bounce">
+                            <div class="emojis" v-show="show_emojis">
+                                <span class="emoji" v-for="emoji in emojis" v-html="emoji.icon" @click="addEmoji(emoji)"></span>
+                            </div>
+                        </transition>
+                        <ul id="inputs_bottom" class="flex">
+                            <li><i class="far fa-smile" @click="show_emojis = !show_emojis"></i></li>
+                            <li class="flex"><input id="message" placeholder="Scrivi un messaggio" class="shadow" type="text"
+                                    v-model="textMessage" @keyup.enter="sentMessage(textMessage)"  @focus="show_emojis = false"></li>
                             <li><a href="#"><i class="fas fa-microphone"></i></a></li>
                         </ul>
                     </div>

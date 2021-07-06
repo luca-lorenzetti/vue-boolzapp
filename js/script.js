@@ -112,6 +112,37 @@ var app = new Vue({
                 ],
             }
         ],
+        emojis:[
+            {
+                'icon': '😊',
+                'word_detect':':)'
+            },
+            {
+                'icon': '😔',
+                'word_detect':':('
+            },
+            {
+                'icon': '😆',
+                'word_detect':'xD'
+            },
+            {
+                'icon': '😡',
+                'word_detect':'>('
+            },
+
+            {
+                'icon': '💗',
+                'word_detect':'<3'
+            },
+            {
+                'icon': '😱',
+                'word_detect':['D8']
+
+            }
+        
+
+        ],
+        show_emojis: false,
         currentChat: {},
         textMessage: "",
         filter: ""
@@ -119,6 +150,11 @@ var app = new Vue({
 
     methods: {
 
+     
+        // Aggiungo emoji al testo
+        addEmoji(emoji){
+            this.textMessage+=emoji.icon; 
+        },
         // Setta la chat corrente
         setCurrentChat: function (id) {
             this.contacts.forEach(element => {
@@ -168,6 +204,7 @@ var app = new Vue({
                 }, time + (getRandomArbitrary(2, 5) * 1000));
               }
 
+              this.show_emojis = false;
         },
         // Funzione che crea la risposta
         createAnswer: function (mess) {
@@ -194,6 +231,9 @@ var app = new Vue({
     },
     // Funzioni eseguite alla creazione di vue
     created: function () {
+
+      
+
         this.setInitCurrentChat();
         this.setChatStarted();
     }
