@@ -2,9 +2,60 @@ var app = new Vue({
     el: '#root',
     data: {
         username: "Luca Lorenzetti",
-        avatar: "img/avatar_io.jpg",
+        avatar: "img/avatar_5.jpg",
+        showContacts: false,
+        chatsCanStarted:[],
         chatStarted: [],
         contacts: [{
+            id: 1,
+            name: 'Michele',
+            avatar: '_1',
+            lastAccess: "10/01/2021 15:30:55",
+        },
+        {
+            id: 2,
+            name: 'Fabio',
+            avatar: '_2',
+            lastAccess: "1/03/2021 10:30:55",
+        },
+        {
+            id: 3,
+            name: 'Samuele',
+            avatar: '_3',
+            lastAccess: "10/02/2021 05:30:10",
+        },
+        {
+            id: 4,
+            name: 'Luisa',
+            avatar: '_4',
+            lastAccess: "20/02/2021 12:23:25",
+        },
+        {
+            id: 5,
+            name: 'Luigi',
+            avatar: '_8',
+            lastAccess: "20/02/2021 11:23:25",
+        },
+        {
+            id: 6,
+            name: 'Francesca',
+            avatar: '_io',
+            lastAccess: "20/02/2021 9:23:25",
+        },
+        {
+            id: 7,
+            name: 'Antonella',
+            avatar: '_6',
+            lastAccess: "20/02/2021 9:23:25",
+        },
+        {
+            id: 8,
+            name: 'Mario',
+            avatar: '_7',
+            lastAccess: "20/02/2021 13:23:25",
+        }
+    ],
+        chatsOpened: [{
                 id: 1,
                 name: 'Michele',
                 lastAccess: "10/01/2021 15:30:55",
@@ -150,14 +201,48 @@ var app = new Vue({
 
     methods: {
 
-     
+        //aggiungo la chat
+        addChat(id){
+            
+            let contact = this.contacts.filter( elem => elem.id == id)[0];
+
+            contact.visible = true;
+            contact.active = false;
+            contact.messages = null;
+
+            contact.lastAccess = "10/01/2021 15:30:55",
+            this.chatsOpened.push(contact);
+            this.chatsCanStarted = this.chatsCanStarted.filter(elem => elem.id !== contact.id)
+            this.setCurrentChat(id);
+            this.showContacts = false;
+
+        },
+        //Setto le chat che possono essere aperte
+        setChatsCanOpened(){
+            this.contacts.forEach(element => {
+                let found = false;
+
+                for (let i = 0; i < this.chatsOpened.length; i++) {
+                  
+                    if( element.id == this.chatsOpened[i].id){
+                        found = true;
+                    }
+                }
+
+                if(!found){
+                    this.chatsCanStarted.push(element);
+                }
+            });
+        },
         // Aggiungo emoji al testo
         addEmoji(emoji){
-            this.textMessage+=emoji.icon; 
+            if(emoji){
+                this.textMessage+=emoji.icon; 
+            }
         },
         // Setta la chat corrente
         setCurrentChat: function (id) {
-            this.contacts.forEach(element => {
+            this.chatsOpened.forEach(element => {
                 if (element.id == id) {
                     element.active = true;
                     this.currentChat = element;
@@ -170,19 +255,24 @@ var app = new Vue({
         },
         //   Setta le chat aperta
         setChatStarted: function () {
-            this.chatStarted = this.contacts.filter(function (elem) {
+            this.chatStarted = this.chatsOpened.filter(function (elem) {
                 return elem.visible;
             });
         },
         //   Setta la chat da aprire all'inizio
         setInitCurrentChat: function () {
-            this.setCurrentChat(this.contacts[0].id)
+            this.setCurrentChat(this.chatsOpened[0].id)
         },
         // Funzione per settare il messagio inviato
         sentMessage: function (text) {
+            console.log("Invio")
+          
             if (text != "") {
                 let time = getRandomArbitrary(2, 5) * 1000;
 
+                if(!this.currentChat.messages){
+                    this.currentChat.messages = [];
+                }
                 this.currentChat.messages.push({
                     id: this.currentChat.messages.length + 1,
                     date: this.getCurrentDate(),
@@ -191,20 +281,21 @@ var app = new Vue({
                     seen: 'sent'
                 });
 
-                this.textMessage = "";
-
+                console.log("prima del setTime")
                 setTimeout(() => {
-
+                    console.log("setTime seen")
                     this.currentChat.messages[this.currentChat.messages.length - 1].seen = 'seen';
                 }, time);
 
                 setTimeout(() => {
-
+                    console.log("setTime non seen")
                     this.createAnswer(buildAnswer(this.currentChat.messages[this.currentChat.messages.length - 1].message));
                 }, time + (getRandomArbitrary(2, 5) * 1000));
               }
 
               this.show_emojis = false;
+              this.textMessage = "";
+
         },
         // Funzione che crea la risposta
         createAnswer: function (mess) {
@@ -222,7 +313,7 @@ var app = new Vue({
         },
         //   Funzione per filtrare le chat aperte
         contactsFilter: function (input) {
-            this.chatStarted = this.contacts.filter(function (elem) {
+            this.chatStarted = this.chatsOpened.filter(function (elem) {
 
                 return (elem.visible && elem.name.toLowerCase().includes(input)) || elem == "";
             })
@@ -232,8 +323,7 @@ var app = new Vue({
     // Funzioni eseguite alla creazione di vue
     created: function () {
 
-      
-
+        this.setChatsCanOpened();
         this.setInitCurrentChat();
         this.setChatStarted();
     }

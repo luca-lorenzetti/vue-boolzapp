@@ -78,19 +78,34 @@
 
                     <!-- Chat list -->
                     <div class="chat_list">
+                        <div class="modal" v-show="showContacts"></div>
                         <ul>
-                            <li v-for="contact in chatStarted" :class="{'active_chat' : contact.active}"
+                            <li v-for="contact in chatsOpened" :class="{'active_chat' : contact.active}"
                                 :key="contact.id"> <a href="#" class="flex" @click="setCurrentChat(contact.id)"> <img
                                         :src=`img/avatar${contact.avatar}.jpg` :alt="'avatar '  + contact.name">
-                                    <p class="flex"><small> {{contact.name}}</small> <small> <i class="fas fa-check"
-                                                v-show="contact.messages[contact.messages.length-1].status == 'sent'"
+                                    <p class="flex"><small> {{contact.name}}</small> <small v-if="contact.messages"> <i class="fas fa-check"
+                                                v-show=" contact.messages.length > 0 && contact.messages[contact.messages.length-1].status == 'sent'"
                                                 :class="{'seen' : contact.messages[contact.messages.length-1].seen == 'seen'}"></i><i
                                                 class="fas fa-check"
-                                                v-show="contact.messages[contact.messages.length-1].status == 'sent'"
+                                                v-show=" contact.messages.length > 0 && contact.messages[contact.messages.length-1].status == 'sent'"
                                                 :class="{'seen' : contact.messages[contact.messages.length-1].seen == 'seen'}"></i>{{contact.messages[contact.messages.length-1].message}}</small>
                                     </p>
                                 </a> </li>
                         </ul>
+                        <transition name="fade">
+                            <div class="contacts_list" v-show="showContacts">
+                                <ul>
+                                    <li v-for="contact in chatsCanStarted">
+                                        <a href="#" class="flex" @click="addChat(contact.id)"> <img :src=`img/avatar${contact.avatar}.jpg` :alt="'avatar '  + contact.name">
+                                        <p  class="flex addChat"><small> {{contact.name}}</small> <i class="fas fa-plus"></i></p>
+                                
+                                    </a>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </transition>
+                        <a href="#" @click="showContacts = !showContacts"><i class="fas fa-plus"></i></a>
                     </div>
                     <!-- /Chat list -->
 
